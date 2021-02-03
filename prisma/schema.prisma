@@ -1,3 +1,7 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -40,6 +44,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+  Todo          Todo[]
   @@map(name: "users")
 }
 
@@ -51,4 +56,13 @@ model VerificationRequest {
   createdAt  DateTime @default(now()) @map(name: "created_at")
   updatedAt  DateTime @default(now()) @map(name: "updated_at")
   @@map(name: "verification_requests")
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  body      String
+  title     String
+  createdAt DateTime @default(now())
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 }
