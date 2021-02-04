@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "migrate:deploy": "prisma migrate deploy --preview-feature",
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm-run-all migrate:deploy build-app",
+    "build-app": "next build",
     "start": "next start"
   },
   "dependencies": {
@@ -13,11 +15,13 @@
     "next-auth": "^3.2.0",
     "prisma": "^2.16.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-query": "^3.7.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.1",
+    "npm-run-all": "^4.1.5",
     "typescript": "^4.1.3"
   }
 }
