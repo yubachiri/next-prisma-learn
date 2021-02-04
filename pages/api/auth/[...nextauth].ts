@@ -3,18 +3,7 @@ import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 import { PrismaClient } from "@prisma/client";
 let prisma;
-// ローカルでは大量にデータベースコネクションを張ってしまうことがあるので、
-// このようなアプローチをとる。TypeScript が global type に prisma がないと怒るので、
-// ルートディレクトリに global.d.ts を作成し、
-// export {};
-// declare global {
-//   namespace NodeJS {
-//     interface Global {
-//       prisma: any;
-//     }
-//   }
-// }
-// としてあげれば治る
+
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {
